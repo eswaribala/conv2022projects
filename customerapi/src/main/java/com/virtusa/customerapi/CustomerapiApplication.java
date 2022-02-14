@@ -3,6 +3,7 @@ package com.virtusa.customerapi;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+
 @SpringBootApplication
 public class CustomerapiApplication {
 
