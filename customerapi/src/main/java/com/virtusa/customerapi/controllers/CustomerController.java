@@ -5,6 +5,8 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,13 +22,18 @@ import com.github.bohnman.squiggly.Squiggly;
 import com.github.bohnman.squiggly.util.SquigglyUtils;
 import com.virtusa.customerapi.models.Customer;
 import com.virtusa.customerapi.services.CustomerService;
+
+import lombok.extern.slf4j.Slf4j;
 //API design
 @RestController
 @RequestMapping("/customers")
+@RefreshScope
+@Slf4j
 public class CustomerController {
     @Autowired
 	private CustomerService customerService;
-    
+    @Value("${message}")
+    private String message;
     //add customer
     @PostMapping({"/v1.0"})
     public ResponseEntity<?> addv10Customer(@RequestBody Customer customer){
@@ -49,6 +56,7 @@ public class CustomerController {
     //get customers
     @GetMapping({"/v1.0", "/v1.1"})
     public List<Customer> getAllCustomers(){
+    	log.info("Message"+message);
     	return this.customerService.getAllCustomers();
     }
     
